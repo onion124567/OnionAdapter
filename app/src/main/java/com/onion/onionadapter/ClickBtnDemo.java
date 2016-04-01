@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.onion.adapter.OnionBaseAdapter;
-import com.onion.bean.Onion;
+import com.onion.uitls.TextField;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class ClickBtnDemo extends ListActivity {
         super.onCreate(savedInstanceState);
         ListView listView = getListView();
         setContentView(listView);
-        final     ArrayList<ButtonBean> buttonBeans = new ArrayList<>();
+        final ArrayList<ButtonBean> buttonBeans = new ArrayList<>();
         buttonBeans.add(new ButtonBean("点击按钮", 0));
         buttonBeans.add(new ButtonBean("点击按钮", 1));
         buttonBeans.add(new ButtonBean("点击按钮", 2));
@@ -31,14 +31,14 @@ public class ClickBtnDemo extends ListActivity {
         buttonBeans.add(new ButtonBean("点击按钮", 6));
         buttonBeans.add(new ButtonBean("点击按钮", 7));
         buttonBeans.add(new ButtonBean("点击按钮", 8));
-        OnionBaseAdapter adapter = new OnionBaseAdapter(this, R.layout.item_btn, buttonBeans, new String[]{"text"});
+        OnionBaseAdapter adapter = new OnionBaseAdapter<ButtonBean>(this, R.layout.item_btn, buttonBeans);
         adapter.setCallBack(new OnionBaseAdapter.CallBack() {
             @Override
             public void onGetView(View view, final int postion) {
                 view.findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(ClickBtnDemo.this,"点击了按钮"+ buttonBeans.get(postion).num,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ClickBtnDemo.this, "点击了按钮" + buttonBeans.get(postion).num, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -48,12 +48,13 @@ public class ClickBtnDemo extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ClickBtnDemo.this,"点击了item"+i,Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClickBtnDemo.this, "点击了item" + i, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static class ButtonBean implements Onion {
+    public static class ButtonBean {
+        @TextField(R.id.test)
         public String text;
         private int num;
 

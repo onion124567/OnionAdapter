@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.onion.adapter.OnionBaseAdapter;
-import com.onion.bean.Onion;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class DiffenceViewDemo extends ListActivity {
         final ArrayList<DiffBean> diffBeans = new ArrayList<>();
         for (int i = 0; i < 20; i++)
             diffBeans.add(new DiffBean(i));
-        OnionBaseAdapter adapter = new OnionBaseAdapter(this, R.layout.item_diff, diffBeans);
+        OnionBaseAdapter adapter = new OnionBaseAdapter<DiffBean>(this, R.layout.item_diff, diffBeans);
         adapter.setCallBack(new OnionBaseAdapter.CallBack() {
             @Override
             public void onGetView(View view, int postion) {
@@ -34,10 +33,8 @@ public class DiffenceViewDemo extends ListActivity {
         });
         listView.setAdapter(adapter);
     }
-
-    public static class DiffBean implements Onion {
+    public static class DiffBean {
         public int num = 30;
-
         public DiffBean(int num) {
             this.num = num;
         }

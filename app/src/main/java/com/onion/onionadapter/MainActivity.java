@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.onion.adapter.OnionBaseAdapter;
-import com.onion.bean.Onion;
 import com.onion.uitls.ImageLoaderConfig;
+import com.onion.uitls.TextField;
 
 import java.util.ArrayList;
 
@@ -27,13 +27,14 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         stringDemos.add(new StringBean("本地图片Demo"));
         stringDemos.add(new StringBean("回调按钮点击事件Demo"));
         stringDemos.add(new StringBean("差异性显示Demo"));
-        OnionBaseAdapter baseAdapter = new OnionBaseAdapter(this, R.layout.item_index, stringDemos, new String[]{"text"});//其中text为所取属性
+        OnionBaseAdapter baseAdapter = new OnionBaseAdapter<StringBean>(this, R.layout.item_index, stringDemos);//其中text为所取属性
         listView.setAdapter(baseAdapter);
         listView.setOnItemClickListener(this);
     }
 
-    public static class StringBean implements Onion {
+    public static class StringBean {
         //设置成公有属性，方便反射
+        @TextField(R.id.str)
         public String text;
 
         public StringBean(String text) {
